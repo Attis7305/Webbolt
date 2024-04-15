@@ -27,6 +27,9 @@
         </ul>
         
         <ul class=" navbar-nav my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">Kosár<span class="sr-only">(current)</span></a>
+          </li>
           {% if request.session.customer %}
           
           <li class="nav-item">
@@ -36,9 +39,7 @@
             <a class="nav-link" href="/logout">Kijelentkezés<span class="sr-only">(current)</span></a>
           </li>
           {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="/cart">Kosár<span class="sr-only">(current)</span></a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="/signup">Regisztráció <span class="sr-only">(current)</span></a>
           </li>
