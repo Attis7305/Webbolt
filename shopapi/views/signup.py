@@ -53,23 +53,25 @@ class Signup(View):
         error_message = None;
         if (not customer.first_name):
             error_message = "Keresztnév megadása kötelező!"
-        elif len(customer.first_name) < 4:
-            error_message = 'A keresztnév legalább 4 karakter legyen!'
+        elif len(customer.first_name) < 2:
+            error_message = 'A keresztnév legalább 2 karakter legyen!'
         elif not customer.last_name:
             error_message = 'Vezetéknév megadása kötelező!'
-        elif len(customer.last_name) < 4:
-            error_message = 'A vezeteknév legalább 4 karakter legyen!'
+        elif len(customer.last_name) < 2:
+            error_message = 'A vezeteknév legalább 2 karakter legyen!'
         elif not customer.phone:
             error_message = 'Telefonszám megadása kötelező!'
+        elif not str(customer.phone).isdigit():
+            error_message = 'A telefonszám csak számot tartalmazhat!'
         elif len(customer.phone) < 10:
             error_message = 'A telefonszám legalább 10 karakter legyen!'
         elif len(customer.password) < 6:
             error_message = 'A jelszó legalább 6 karakter legyen!'
-        elif len(customer.email) < 5:
-            error_message = 'Az email legalább 5 karakter legyen!'
+        elif len(customer.email) < 6:
+            error_message = 'Az email legalább 6 karakter legyen!'
         elif customer.isExists():
             error_message = 'Email cím már regisztrálva'            
 
-        #saving
+        
 
         return error_message
