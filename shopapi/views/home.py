@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , HttpResponseRedirect
 from shopapi.models.product import Product
 from shopapi.models.category import Category
 from django.views import View
@@ -32,24 +32,27 @@ class Index(View):
         request.session['cart'] = cart
         print('cart' , request.session['cart'])
         return redirect('homepage')
-
+    
     def get(self , request):
-        cart = request.session.get('cart')
-        if not cart:
-            request.session['cart'] = {}
-        products = None
-        categories = Category.get_all_categories()
-        categoryID = request.GET.get('category')
-        if categoryID:
-            products = Product.get_all_products_by_categoryid(categoryID)
-        else:
-            products = Product.get_all_products();    
+        return HttpResponseRedirect(f'/shopapi{request.get_full_path()[1:]}')
 
-        data = {}
-        data['products'] = products
-        data['categories'] = categories
+def shopapi(request):
+    cart = request.session.get('cart')
+    if not cart:
+        request.session['cart'] = {}
+    products = None
+    categories = Category.get_all_categories()
+    categoryID = request.GET.get('category')
+    if categoryID:
+        products = Product.get_all_products_by_categoryid(categoryID)
+    else:
+        products = Product.get_all_products();    
 
-        print('Te vagy:' , request.session.get('email'))
+    data = {}
+    data['products'] = products
+    data['categories'] = categories
 
-        return render(request , 'index.html' , data)
+    print('Te vagy:' , request.session.get('email'))
+
+    return render(request , 'index.html' , data)
     
